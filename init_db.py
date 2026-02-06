@@ -3,7 +3,7 @@
 import sqlite3
 import os
 
-DB_PATH = "bingo.db"
+DB_PATH = "data/bingo.db"
 SCHEMA_PATH = "schema.sql"
 
 
@@ -12,6 +12,7 @@ def init_db():
     if os.path.exists(DB_PATH):
         os.remove(DB_PATH)
 
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 

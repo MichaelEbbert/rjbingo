@@ -3,7 +3,7 @@ import random
 from flask import Flask, render_template, request, g, jsonify
 
 app = Flask(__name__)
-DATABASE = "bingo.db"
+DATABASE = "data/bingo.db"
 
 
 def get_db():
