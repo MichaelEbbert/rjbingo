@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS albums (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    artist_credit TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS songs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    album_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    track_number INTEGER NOT NULL,
+    FOREIGN KEY (album_id) REFERENCES albums(id)
+);
+
+CREATE TABLE IF NOT EXISTS words (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    word TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS song_words (
+    song_id INTEGER NOT NULL,
+    word_id INTEGER NOT NULL,
+    PRIMARY KEY (song_id, word_id),
+    FOREIGN KEY (song_id) REFERENCES songs(id),
+    FOREIGN KEY (word_id) REFERENCES words(id)
+);

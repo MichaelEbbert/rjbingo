@@ -1,0 +1,23 @@
+<div class="cards-container">
+    {% for card in cards %}
+    <div class="bingo-card">
+        <div class="card-header">
+            <span>D</span><span>I</span><span>O</span><span>!</span><span>!</span>
+        </div>
+        <div class="card-grid">
+            {% for row in card %}
+            {% for cell in row %}
+            <div class="cell {% if cell == 'FREE' %}free-cell{% endif %}">
+                {% if cell == 'FREE' %}
+                <span class="free-text">FREE</span>
+                <span class="horns">&#129304;</span>
+                {% else %}
+                {{ cell }}
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

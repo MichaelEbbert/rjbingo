@@ -1,0 +1,411 @@
+/* === Base === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* === Header === */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #ff4444;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+    color: #999;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+/* === Era Sections === */
+.era {
+    margin-bottom: 25px;
+    background: #16213e;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #2a2a4a;
+}
+
+.era-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.era-header h2 {
+    color: #ff6b6b;
+    font-size: 1.4rem;
+}
+
+.btn-select-all {
+    background: #2a2a4a;
+    color: #ccc;
+    border: 1px solid #444;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-select-all:hover {
+    background: #3a3a5a;
+}
+
+/* === Albums === */
+.album {
+    margin-bottom: 8px;
+    background: #1a1a35;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+.album-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.album-label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.album-label input[type="checkbox"] {
+    accent-color: #ff4444;
+    width: 16px;
+    height: 16px;
+}
+
+.album-year {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.btn-expand {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px 8px;
+}
+
+.btn-expand:hover {
+    color: #ff6b6b;
+}
+
+/* === Songs List === */
+.songs-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.songs-list.expanded {
+    max-height: 500px;
+}
+
+.song-list-inner {
+    list-style: none;
+    padding: 8px 0 4px 28px;
+}
+
+.song-list-inner li {
+    padding: 2px 0;
+}
+
+.song-list-inner label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.song-list-inner input[type="checkbox"] {
+    accent-color: #ff6b6b;
+}
+
+/* === Controls === */
+.controls {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #16213e;
+    border-radius: 8px;
+    border: 1px solid #2a2a4a;
+}
+
+.word-count-display {
+    font-size: 0.95rem;
+    color: #999;
+}
+
+#word-count.sufficient {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+#word-count.insufficient {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.card-count label {
+    margin-right: 6px;
+    color: #ccc;
+}
+
+.card-count select {
+    background: #2a2a4a;
+    color: #eee;
+    border: 1px solid #444;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.btn-generate,
+.btn-print {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-generate {
+    background: #ff4444;
+    color: #fff;
+}
+
+.btn-generate:hover {
+    background: #ff6666;
+}
+
+.btn-print {
+    background: #2a2a4a;
+    color: #ccc;
+    border: 1px solid #444;
+}
+
+.btn-print:hover {
+    background: #3a3a5a;
+}
+
+/* === Warning === */
+.warning {
+    background: #4a3000;
+    border: 1px solid #ff9800;
+    color: #ffcc80;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* === Bingo Cards === */
+.cards-container {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+.bingo-card {
+    background: #fff;
+    color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 380px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.card-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: #cc0000;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.card-header span {
+    padding: 8px 0;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 2px solid #cc0000;
+}
+
+.cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    padding: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    word-break: break-word;
+}
+
+.free-cell {
+    background: #ffecec;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.free-text {
+    font-size: 0.7rem;
+    color: #cc0000;
+    font-weight: bold;
+}
+
+.horns {
+    font-size: 1.4rem;
+}
+
+/* === Print View === */
+.print-body {
+    background: #fff;
+    color: #000;
+}
+
+.print-controls {
+    text-align: center;
+    padding: 15px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.print-controls button {
+    background: #cc0000;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.print-controls a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.print-controls a:hover {
+    text-decoration: underline;
+}
+
+.print-layout {
+    padding: 20px;
+}
+
+/* === Print Styles === */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .bingo-card {
+        box-shadow: none;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 20px;
+    }
+
+    .cards-container {
+        gap: 10px;
+    }
+
+    .cell {
+        border-color: #999;
+    }
+
+    .card-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .free-cell {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* === Mobile === */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-generate,
+    .btn-print {
+        width: 100%;
+        text-align: center;
+    }
+
+    .bingo-card {
+        width: 100%;
+    }
+
+    .cell {
+        font-size: 0.65rem;
+    }
+}

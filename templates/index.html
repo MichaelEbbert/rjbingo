@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <header>
+        <h1>Dio Bingo</h1>
+        <p class="subtitle">Select albums &amp; songs, then generate printable bingo cards</p>
+    </header>
+
+    <form id="bingo-form">
+        {% for era_name, albums in eras.items() %}
+        <section class="era">
+            <div class="era-header">
+                <h2>{{ era_name }}</h2>
+                <button type="button" class="btn-select-all" onclick="toggleEra(this, '{{ era_name }}')">Select All</button>
+            </div>
+
+            {% for album in albums %}
+            <div class="album">
+                <div class="album-header">
+                    <label class="album-label">
+                        <input type="checkbox"
+                               class="album-checkbox era-{{ era_name | replace(' ', '-') }}"
+                               name="album_ids[]"
+                               value="{{ album.id }}"
+                               onchange="updateWordCount()">
+                        <strong>{{ album.title }}</strong>
+                        <span class="album-year">({{ album.year }})</span>
+                    </label>
+                    <button type="button"
+                            class="btn-expand"
+                            hx-get="/songs/{{ album.id }}"
+                            hx-target="#songs-{{ album.id }}"
+                            hx-swap="innerHTML"
+                            onclick="toggleExpand(this)">
+                        &#9654;
+                    </button>
+                </div>
+                <div class="songs-list" id="songs-{{ album.id }}"></div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endfor %}
+
+        <div class="controls">
+            <div class="word-count-display">
+                Words available: <span id="word-count" class="">0 words in pool</span>
+            </div>
+
+            <div class="card-count">
+                <label for="num_cards">Number of cards:</label>
+                <select name="num_cards" id="num_cards">
+                    {% for n in range(1, 9) %}
+                    <option value="{{ n }}">{{ n }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="button"
+                    class="btn-generate"
+                    hx-post="/generate"
+                    hx-target="#cards-output"
+                    hx-include="#bingo-form">
+                Generate Cards
+            </button>
+
+            <button type="button"
+                    class="btn-print"
+                    hx-post="/print"
+                    hx-target="body"
+                    hx-include="#bingo-form"
+                    hx-swap="innerHTML"
+                    hx-push-url="false">
+                Print Cards
+            </button>
+        </div>
+    </form>
+
+    <div id="cards-output"></div>
+</div>
+
+<script>
+function toggleEra(btn, eraName) {
+    const cls = 'era-' + eraName.replace(/ /g, '-');
+    const checkboxes = document.querySelectorAll('.' + cls);
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+    checkboxes.forEach(cb => {
+        cb.checked = !allChecked;
+    });
+
+    btn.textContent = allChecked ? 'Select All' : 'Deselect All';
+    updateWordCount();
+}
+
+function toggleExpand(btn) {
+    const songsList = btn.closest('.album').querySelector('.songs-list');
+    const isExpanded = songsList.classList.contains('expanded');
+
+    if (isExpanded) {
+        songsList.classList.remove('expanded');
+        btn.innerHTML = '&#9654;';
+    } else {
+        songsList.classList.add('expanded');
+        btn.innerHTML = '&#9660;';
+    }
+}
+
+function updateWordCount() {
+    const albumCheckboxes = document.querySelectorAll('.album-checkbox:checked');
+    const songCheckboxes = document.querySelectorAll('.song-checkbox:checked');
+
+    const albumIds = Array.from(albumCheckboxes).map(cb => cb.value);
+    const songIds = Array.from(songCheckboxes).map(cb => cb.value);
+
+    const formData = new FormData();
+    albumIds.forEach(id => formData.append('album_ids[]', id));
+    songIds.forEach(id => formData.append('song_ids[]', id));
+
+    fetch('/word-count', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.text())
+    .then(html => {
+        document.getElementById('word-count').outerHTML = html;
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dio Bingo - Print</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="print-body">
+    <div class="print-controls no-print">
+        <button onclick="window.print()">Print Cards</button>
+        <a href="/">Back to Selection</a>
+    </div>
+
+    <div class="cards-container print-layout">
+        {% for card in cards %}
+        <div class="bingo-card">
+            <div class="card-header">
+                <span>D</span><span>I</span><span>O</span><span>!</span><span>!</span>
+            </div>
+            <div class="card-grid">
+                {% for row in card %}
+                {% for cell in row %}
+                <div class="cell {% if cell == 'FREE' %}free-cell{% endif %}">
+                    {% if cell == 'FREE' %}
+                    <span class="free-text">FREE</span>
+                    <span class="horns">&#129304;</span>
+                    {% else %}
+                    {{ cell }}
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        // Auto-trigger print dialog
+        window.onload = function() {
+            window.print();
+        };
+    </script>
+</body>
+</html>

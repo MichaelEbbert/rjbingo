@@ -1,0 +1,14 @@
+<ul class="song-list-inner">
+    {% for song in songs %}
+    <li>
+        <label>
+            <input type="checkbox"
+                   class="song-checkbox"
+                   name="song_ids[]"
+                   value="{{ song.id }}"
+                   onchange="updateWordCount()">
+            {{ song.track_number }}. {{ song.title }}
+        </label>
+    </li>
+    {% endfor %}
+</ul>
